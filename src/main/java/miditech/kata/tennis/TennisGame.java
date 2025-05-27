@@ -36,12 +36,14 @@ public class TennisGame implements TennisGameInterface {
 
 	@Override
 	public void playerOneScores() {
-		scorePlayerOne = scores.get(scorePlayerOne.value + 1);
+		int newScoreValue = scorePlayerOne.value + 1;
+		scorePlayerOne = scores.get(newScoreValue);
 	}
 
 	@Override
 	public void playerTwoScores() {
-		scorePlayerTwo = scores.get(scorePlayerOne.value + 1);
+		int newScoreValue = scorePlayerTwo.value + 1;
+		scorePlayerTwo = scores.get(newScoreValue);
 	}
 
 }

@@ -43,4 +43,17 @@ class TennisGameTest {
 		assertThat(tennisGame.getScore()).isEqualTo("Love,Fifteen");
 	}
 
+	@Test
+	void playerTwoScoresTwoTimes() {
+		// Given
+		TennisGame tennisGame = new TennisGame("player1", "player2");
+		tennisGame.playerTwoScores();
+
+		// When
+		tennisGame.playerTwoScores();
+
+		// Then
+		assertThat(tennisGame.getScore()).isEqualTo("Love,Thirty");
+	}
+
 }
