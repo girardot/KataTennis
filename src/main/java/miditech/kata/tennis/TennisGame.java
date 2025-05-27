@@ -2,22 +2,24 @@ package miditech.kata.tennis;
 
 public class TennisGame implements TennisGameInterface {
 
+	private String score = "";
+
 	public TennisGame(String playerOneName, String playerTwoName) {
 	}
 
 	@Override
-	public String getScore() throws NotYetImplementedException {
-		throw new NotYetImplementedException();
+	public String getScore() {
+		return score;
 	}
 
 	@Override
-	public void playerOneScores() throws Exception {
-		throw new NotYetImplementedException();
+	public void playerOneScores() {
+		score = "Fifteen,Love";
 	}
 
 	@Override
-	public void playerTwoScores() throws Exception {
-		throw new NotYetImplementedException();
+	public void playerTwoScores() {
+		score = "Love,Fifteen";
 	}
 
 }
