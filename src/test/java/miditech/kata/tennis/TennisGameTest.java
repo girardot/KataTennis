@@ -1,59 +1,46 @@
 package miditech.kata.tennis;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.params.provider.Arguments.of;
 
 class TennisGameTest {
+	private final TennisGame tennisGame = new TennisGame("player1", "player2");
 
-	@Test
-	void playerOneScores() {
-		// Given
-		TennisGame tennisGame = new TennisGame("player1", "player2");
-
-		// When
-		tennisGame.playerOneScores();
-
-		// Then
-		assertThat(tennisGame.getScore()).isEqualTo("Fifteen,Love");
+	private static Stream<Arguments> computeScoreParams() {
+		return Stream.of(
+				of(0, 0, "Love all"),
+				of(1, 1, "Fifteen all"),
+				of(2, 2, "Thirty all"),
+				of(1, 0, "Fifteen,Love"),
+				of(2, 0, "Thirty,Love"),
+				of(3, 0, "Forty,Love"),
+				of(0, 1, "Love,Fifteen"),
+				of(0, 2, "Love,Thirty"),
+				of(0, 3, "Love,Forty")
+		);
 	}
 
-	@Test
-	void playerOneScoresTwoTimes() {
+	@ParameterizedTest
+	@MethodSource("computeScoreParams")
+	void computeScore(int playerOneScore, int playerTwoScore, String expectedScore) {
 		// Given
-		TennisGame tennisGame = new TennisGame("player1", "player2");
-		tennisGame.playerOneScores();
+		for (int i = 0; i < playerOneScore; i++) {
+			tennisGame.playerOneScores();
+		}
+		for (int i = 0; i < playerTwoScore; i++) {
+			tennisGame.playerTwoScores();
+		}
 
 		// When
-		tennisGame.playerOneScores();
+		String score = tennisGame.getScore();
 
 		// Then
-		assertThat(tennisGame.getScore()).isEqualTo("Thirty,Love");
+		assertThat(score).isEqualTo(expectedScore);
 	}
-
-	@Test
-	void playerTwoScores() {
-		// Given
-		TennisGame tennisGame = new TennisGame("player1", "player2");
-
-		// When
-		tennisGame.playerTwoScores();
-
-		// Then
-		assertThat(tennisGame.getScore()).isEqualTo("Love,Fifteen");
-	}
-
-	@Test
-	void playerTwoScoresTwoTimes() {
-		// Given
-		TennisGame tennisGame = new TennisGame("player1", "player2");
-		tennisGame.playerTwoScores();
-
-		// When
-		tennisGame.playerTwoScores();
-
-		// Then
-		assertThat(tennisGame.getScore()).isEqualTo("Love,Thirty");
-	}
-
 }
