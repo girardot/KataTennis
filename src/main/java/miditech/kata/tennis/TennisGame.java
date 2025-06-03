@@ -1,49 +1,43 @@
 package miditech.kata.tennis;
 
-import java.util.List;
+import java.util.Map;
 
 public class TennisGame implements TennisGameInterface {
 
-	private final List<Score> scores = List.of(
-			Score.LOVE, Score.FIFTEEN, Score.THIRTY, Score.FORTY
+
+	private final Map<Integer, String> scoreLabels = Map.of(
+			0, "Love",
+			1, "Fifteen",
+			2, "Thirty",
+			3, "Forty"
 	);
 
-	enum Score {
-		LOVE("Love", 0),
-		FIFTEEN("Fifteen", 1),
-		THIRTY("Thirty", 2),
-		FORTY("Forty", 3);
-
-		private final String label;
-		private final int value;
-
-		Score(final String label, final int value) {
-			this.label = label;
-			this.value = value;
-		}
-	}
-
-	private Score scorePlayerOne = Score.LOVE;
-	private Score scorePlayerTwo = Score.LOVE;
+	private int scorePlayerOne = 0;
+	private int scorePlayerTwo = 0;
 
 	public TennisGame(String playerOneName, String playerTwoName) {
 	}
 
 	@Override
 	public String getScore() {
-		return scorePlayerOne.label + "," + scorePlayerTwo.label;
+		if (scorePlayerOne == scorePlayerTwo) {
+			if (scorePlayerOne <= 3) {
+				return scoreLabels.get(scorePlayerOne) + " all";
+			} else {
+				return "Deuce";
+			}
+		}
+		return scoreLabels.get(scorePlayerOne) + "," + scoreLabels.get(scorePlayerTwo);
 	}
 
 	@Override
 	public void playerOneScores() {
-		int newScoreValue = scorePlayerOne.value + 1;
-		scorePlayerOne = scores.get(newScoreValue);
+		scorePlayerOne++;
 	}
 
 	@Override
 	public void playerTwoScores() {
-		int newScoreValue = scorePlayerTwo.value + 1;
-		scorePlayerTwo = scores.get(newScoreValue);
+		scorePlayerTwo++;
 	}
 
 }

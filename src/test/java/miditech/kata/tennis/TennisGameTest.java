@@ -22,7 +22,21 @@ class TennisGameTest {
 				of(3, 0, "Forty,Love"),
 				of(0, 1, "Love,Fifteen"),
 				of(0, 2, "Love,Thirty"),
-				of(0, 3, "Love,Forty")
+				of(0, 3, "Love,Forty"),
+				of(4, 4, "Deuce"),
+				of(5, 5, "Deuce"),
+				of(6, 6, "Deuce"),
+				of(7, 7, "Deuce"),
+				of(5, 0, "Advantage Player1"),
+				of(5, 1, "Advantage Player1"),
+				of(5, 2, "Advantage Player1"),
+				of(5, 3, "Advantage Player1"),
+				of(5, 4, "Advantage Player1"),
+				of(0, 5, "Advantage Player2"),
+				of(1, 5, "Advantage Player2"),
+				of(2, 5, "Advantage Player2"),
+				of(3, 5, "Advantage Player2"),
+				of(4, 5, "Advantage Player2")
 		);
 	}
 
