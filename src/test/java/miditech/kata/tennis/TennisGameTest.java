@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.of;
 
 class TennisGameTest {
-	private final TennisGame tennisGame = new TennisGame("player1", "player2");
+	private final TennisGame tennisGame = new TennisGame("Player1", "Player2");
 
 	private static Stream<Arguments> computeScoreParams() {
 		return Stream.of(
@@ -27,16 +27,32 @@ class TennisGameTest {
 				of(5, 5, "Deuce"),
 				of(6, 6, "Deuce"),
 				of(7, 7, "Deuce"),
-				of(5, 0, "Advantage Player1"),
-				of(5, 1, "Advantage Player1"),
-				of(5, 2, "Advantage Player1"),
-				of(5, 3, "Advantage Player1"),
+				of(4, 0, "Advantage Player1"),
+				of(4, 1, "Advantage Player1"),
+				of(4, 2, "Advantage Player1"),
+				of(4, 3, "Advantage Player1"),
 				of(5, 4, "Advantage Player1"),
-				of(0, 5, "Advantage Player2"),
-				of(1, 5, "Advantage Player2"),
-				of(2, 5, "Advantage Player2"),
-				of(3, 5, "Advantage Player2"),
-				of(4, 5, "Advantage Player2")
+				of(6, 5, "Advantage Player1"),
+				of(0, 4, "Advantage Player2"),
+				of(1, 4, "Advantage Player2"),
+				of(2, 4, "Advantage Player2"),
+				of(3, 4, "Advantage Player2"),
+				of(4, 5, "Advantage Player2"),
+				of(5, 6, "Advantage Player2"),
+				of(5, 0, "Player1 wins"),
+				of(5, 1, "Player1 wins"),
+				of(5, 2, "Player1 wins"),
+				of(5, 3, "Player1 wins"),
+				of(5, 3, "Player1 wins"),
+				of(6, 4, "Player1 wins"),
+				of(7, 5, "Player1 wins"),
+				of(0, 5, "Player2 wins"),
+				of(1, 5, "Player2 wins"),
+				of(2, 5, "Player2 wins"),
+				of(3, 5, "Player2 wins"),
+				of(4, 6, "Player2 wins"),
+				of(5, 7, "Player2 wins")
+
 		);
 	}
 
