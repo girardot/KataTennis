@@ -5,12 +5,6 @@ import java.util.Map;
 public class TennisGame implements TennisGameInterface {
 
 
-	private final Map<Integer, String> scoreLabels = Map.of(
-			0, "Love",
-			1, "Fifteen",
-			2, "Thirty",
-			3, "Forty"
-	);
 	private final String playerOneName;
 	private final String playerTwoName;
 
@@ -25,52 +19,55 @@ public class TennisGame implements TennisGameInterface {
 	@Override
 	public String getScore() {
 
+		if (hasWinner()) {
+			return playerWithHighestScore() + " wins";
+		}
+
+		if (hasAdvantage()) {
+			return "Advantage " + playerWithHighestScore();
+		}
+
+		if (isDeuce()) {
+			return "Deuce";
+		}
+
 		if (scorePlayerOne == scorePlayerTwo) {
-			if (scorePlayerOne <= 3) {
-				return scoreLabels.get(scorePlayerOne) + " all";
-			}
-
-			if (scorePlayerOne == scorePlayerTwo) {
-				return "Deuce";
-			}
+			return translateScore(scorePlayerOne) + " all";
 		}
 
-		if (scorePlayerOne <= 3 && scorePlayerTwo <= 3) {
-			return scoreLabels.get(scorePlayerOne) + "," + scoreLabels.get(scorePlayerTwo);
+		return translateScore(scorePlayerOne) + "," + translateScore(scorePlayerTwo);
+	}
+
+	private boolean hasWinner() {
+		if (scorePlayerTwo >= 4 && scorePlayerTwo >= scorePlayerOne + 2) {
+			return true;
 		}
-
-		if (scorePlayerOne == 4) {
-			if (scorePlayerOne - scorePlayerTwo >= 1) {
-				return "Advantage " + playerOneName;
-			}
+		if (scorePlayerOne >= 4 && scorePlayerOne >= scorePlayerTwo + 2) {
+			return true;
 		}
+		return false;
+	}
 
-		if (scorePlayerTwo == 4) {
-			if (scorePlayerTwo - scorePlayerOne >= 1) {
-				return "Advantage " + playerTwoName;
-			}
+	private boolean hasAdvantage() {
+		if (scorePlayerTwo >= 4 && scorePlayerTwo == scorePlayerOne + 1) {
+			return true;
 		}
-
-		if (scorePlayerOne > 4) {
-			if (scorePlayerOne - scorePlayerTwo == 1) {
-				return "Advantage " + playerOneName;
-			}
-
-			if (scorePlayerOne - scorePlayerTwo >= 2) {
-				return playerOneName + " wins";
-			}
+		if (scorePlayerOne >= 4 && scorePlayerOne == scorePlayerTwo + 1) {
+			return true;
 		}
+		return false;
+	}
 
-		if (scorePlayerTwo > 4) {
-			if (scorePlayerTwo - scorePlayerOne == 1) {
-				return "Advantage " + playerTwoName;
-			}
-			if (scorePlayerTwo - scorePlayerOne >= 2) {
-				return playerTwoName + " wins";
-			}
+	private String playerWithHighestScore() {
+		if (scorePlayerOne > scorePlayerTwo) {
+			return playerOneName;
+		} else {
+			return playerTwoName;
 		}
+	}
 
-		return "";
+	private boolean isDeuce() {
+		return scorePlayerOne >= 3 && scorePlayerTwo == scorePlayerOne;
 	}
 
 	@Override
@@ -83,4 +80,14 @@ public class TennisGame implements TennisGameInterface {
 		scorePlayerTwo++;
 	}
 
+	private final Map<Integer, String> scoreLabels = Map.of(
+			0, "Love",
+			1, "Fifteen",
+			2, "Thirty",
+			3, "Forty"
+	);
+
+	private String translateScore(int score) {
+		return scoreLabels.get(score);
+	}
 }
